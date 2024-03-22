@@ -23,3 +23,5 @@ TATIL
 NANE 
 YESIL LIMON 
 LIMON KABUGU 
+
+hata ekle 
