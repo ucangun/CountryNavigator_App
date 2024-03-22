@@ -9,3 +9,8 @@ PORTAKAL
 1.Rendele 
 2.Karistir
 3.Dök
+
+
+SÜRAHI 
+BARDAK 
+
