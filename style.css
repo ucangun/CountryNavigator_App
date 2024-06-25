@@ -27,3 +27,7 @@ h1 {
   height: 10rem;
   object-fit: cover;
 }
+
+.displayContainer {
+  margin-top: 20rem;
+}
