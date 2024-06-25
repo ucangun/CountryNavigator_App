@@ -1,0 +1,33 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: linear-gradient(to right bottom, #ff7e5f, #feb47b);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+}
+
+h1 {
+  color: #000;
+}
+
+.btn {
+  font-size: 1.6rem !important;
+  width: 75%;
+}
+
+.card img {
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+}
+
+.row {
+  border: 10px solid #000;
+}
