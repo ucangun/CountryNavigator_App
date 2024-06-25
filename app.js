@@ -95,7 +95,7 @@ const getOtherCountry = async () => {
 
 const printCountryCard = (data) => {
   const html = `
-<div class="card col-8 col-md-5 col-lg-3 p-0" style="width: 18rem;">
+<div class="card col-10 col-md-4 p-0" style="width: 20rem;">
   <img src="${data.flags.svg}" class="card-img-top card-img"   />
   <div class="card-body d-flex flex-column justify-content-between">
     <h5 class="card-title">${data.name.common}</h5>
