@@ -3,6 +3,9 @@ const whereButton = document.querySelector(".where");
 const displayRow = document.querySelector(".display");
 const displayFlag = document.querySelector(".displayFlag");
 const displayAdress = document.querySelector(".displayAdress");
+const buttonContainer = document.querySelector(".buttonContainer");
+const displayContainer = document.querySelector(".displayContainer");
+const inputContainer = document.querySelector(".inputContainer");
 
 // ! Geolocation Function
 let lat;
@@ -41,10 +44,10 @@ const getCountry = async (countryName) => {
   const res = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
   const data = await res.json();
   //console.log(data);
-  data.forEach((data) => printScreen(data));
+  data.forEach((data) => printLocationCard(data));
 };
 
-const printScreen = (data) => {
+const printLocationCard = (data) => {
   const html = `
 <div class="card col-8 col-md-5 col-lg-3 p-0" style="width: 18rem;">
   <img src="${data.flags.svg}" class="card-img-top card-img"   />
@@ -70,3 +73,52 @@ whereButton.addEventListener("click", () => {
   printAddress(country);
   getCountry(countryName);
 });
+
+otherButton.addEventListener("click", () => {
+  getOtherCountry();
+});
+
+//! Other Buttons
+
+const getOtherCountry = async () => {
+  const res = await fetch("https://restcountries.com/v3.1/all");
+  const data = await res.json();
+
+  input(data);
+
+  displayRow.innerHTML = "";
+  displayContainer.classList.add("d-none");
+  inputContainer.classList.remove("d-none");
+
+  data.forEach((country) => printCountryCard(country));
+};
+
+const printCountryCard = (data) => {
+  const html = `
+<div class="card col-8 col-md-5 col-lg-3 p-0" style="width: 18rem;">
+  <img src="${data.flags.svg}" class="card-img-top card-img"   />
+  <div class="card-body d-flex flex-column justify-content-between">
+    <h5 class="card-title">${data.name.common}</h5>
+    <ul class="card-list list-unstyled me-2 fs-2">
+      <li>🏛️ ${data.capital}</li>
+      <li>💰 ${Object.values(data.currencies)[0].name}</li>
+      <li>👬 ${(Number(data.population) / 1000000).toFixed(2)} </li>
+    </ul>
+    <a href="#" class="btn btn-primary btn-lg">Location!</a>
+  </div>
+  </div> 
+  `;
+
+  displayRow.insertAdjacentHTML("beforeend", html);
+};
+
+const input = (data) => {
+  document.querySelector("input").oninput = (e) => {
+    const filteredData = data.filter((country) =>
+      country.name.common.toLowerCase().includes(e.target.value.toLowerCase())
+    );
+
+    displayRow.innerHTML = "";
+    filteredData.forEach((country) => printCountryCard(country));
+  };
+};
