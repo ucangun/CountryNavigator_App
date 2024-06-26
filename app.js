@@ -33,7 +33,7 @@ const getLocation = async (lat, long) => {
 
 const printAddress = (country) => {
   const html = `
-  <p>You are currently in ${country.city} , ${country.country}</p>`;
+  <p class="adressText">You are currently in ${country.city} , ${country.country}</p>`;
 
   displayAdress.insertAdjacentHTML("beforeend", html);
 };
