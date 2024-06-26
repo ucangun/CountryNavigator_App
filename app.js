@@ -49,16 +49,20 @@ const getCountry = async (countryName) => {
 
 const printLocationCard = (data) => {
   const html = `
-<div class="card col-8 col-md-5 col-lg-3 p-0" style="width: 18rem;">
+<div class="card  p-0" style="width: 25rem;">
   <img src="${data.flags.svg}" class="card-img-top card-img"   />
   <div class="card-body d-flex flex-column justify-content-between">
     <h5 class="card-title">${data.name.common}</h5>
     <ul class="card-list list-unstyled me-2 fs-2">
-      <li>🏛️ ${data.capital}</li>
-      <li>💰 ${Object.values(data.currencies)[0].name}</li>
-      <li>👬 ${(Number(data.population) / 1000000).toFixed(2)} </li>
+      <li><i class="fa-solid fa-landmark"></i> ${data.capital}</li>
+      <li><i class="fa-solid fa-coins"></i> ${
+        Object.values(data.currencies)[0].name
+      }</li>
+      <li><i class="fa-solid fa-person"></i> ${(
+        Number(data.population) / 1000000
+      ).toFixed(2)} </li>
     </ul>
-    <a href="#" class="btn btn-primary btn-lg">Get Neighbours!</a>
+    <a href="#" class="btn btn-primary btn-lg location">Location!</a>
   </div>
   </div> 
   `;
@@ -95,16 +99,20 @@ const getOtherCountry = async () => {
 
 const printCountryCard = (data) => {
   const html = `
-<div class="card col-10 col-md-4 p-0" style="width: 20rem;">
-  <img src="${data.flags.svg}" class="card-img-top card-img"   />
+<div class="card col-12 col-md-4 p-0" style="width: 25rem;">
+  <img src="${data.flags.svg}" class="card-img-top card-img" />
   <div class="card-body d-flex flex-column justify-content-between">
     <h5 class="card-title">${data.name.common}</h5>
-    <ul class="card-list list-unstyled me-2 fs-2">
-      <li>🏛️ ${data.capital}</li>
-      <li>💰 ${Object.values(data.currencies)[0].name}</li>
-      <li>👬 ${(Number(data.population) / 1000000).toFixed(2)} </li>
+    <ul class="card-list list-unstyled me-2">
+      <li><i class="fa-solid fa-landmark"></i> ${data.capital}</li>
+      <li><i class="fa-solid fa-coins"></i> ${
+        Object.values(data.currencies)[0].name
+      }</li>
+      <li><i class="fa-solid fa-person"></i>${(
+        Number(data.population) / 1000000
+      ).toFixed(2)} </li>
     </ul>
-    <a href="#" class="btn btn-primary btn-lg">Location!</a>
+    <a href="#" class="btn btn-primary btn-lg location">Location!</a>
   </div>
   </div> 
   `;

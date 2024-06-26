@@ -20,21 +20,76 @@ body {
 }
 
 h1 {
+  font-size: 3rem;
   color: #fff;
+  letter-spacing: 0.5rem;
+  text-transform: uppercase;
+
+  /* color: #40e0d0; */
 }
 
 .other,
 .where {
   font-size: 1.6rem !important;
+  background-color: #457b9d !important;
+  color: #f0f0f0;
   width: 75%;
+  border: none;
+  transition: all 0.7s;
+}
+
+.other:hover,
+.where:hover {
+  background-color: #35617d !important;
+}
+
+.location {
+  background-color: #457b9d !important;
+  border: none;
+  transition: all 0.7s;
+}
+
+.location:hover {
+  background-color: #35617d !important;
 }
 
 .card img {
   width: 100%;
-  height: 10rem;
+  height: 12rem;
   object-fit: cover;
 }
 
 .displayContainer {
   margin-top: 20rem;
+}
+
+/******************/
+
+.h3 {
+  font-size: 2rem;
+  color: #f5f5dc !important;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+}
+
+.card-body {
+  padding: 1rem !important;
+}
+
+.card-title {
+  font-size: 2.2rem;
+  margin: 1rem 0;
+}
+
+.card-list {
+  font-size: 1.6rem;
+}
+
+.card-list i {
+  font-size: 2rem;
+  margin-right: 0.5rem;
+}
+
+.card-list li .fa-person {
+  margin-right: 1.6rem;
 }
