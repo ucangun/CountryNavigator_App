@@ -43,6 +43,7 @@ const printAddress = (country) => {
 const getCountry = async (countryName) => {
   const res = await fetch(`https://restcountries.com/v3.1/name/${countryName}`);
   const data = await res.json();
+  seeLocation(data);
   //console.log(data);
   data.forEach((data) => printLocationCard(data));
 };
@@ -87,14 +88,18 @@ otherButton.addEventListener("click", () => {
 const getOtherCountry = async () => {
   const res = await fetch("https://restcountries.com/v3.1/all");
   const data = await res.json();
+  console.log(data);
 
   input(data);
+  seeLocation(data);
 
   displayRow.innerHTML = "";
   displayContainer.classList.add("d-none");
   inputContainer.classList.remove("d-none");
 
-  data.forEach((country) => printCountryCard(country));
+  data.forEach((country) => {
+    printCountryCard(country);
+  });
 };
 
 const printCountryCard = (data) => {
@@ -118,6 +123,24 @@ const printCountryCard = (data) => {
   `;
 
   displayRow.insertAdjacentHTML("beforeend", html);
+};
+
+const seeLocation = (data) => {
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("location")) {
+      const countryName = e.target
+        .closest(".card")
+        .querySelector(".card-title").textContent;
+      const countryData = data.find(
+        (country) => country.name.common === countryName
+      );
+
+      if (countryData && countryData.maps && countryData.maps.googleMaps) {
+        const googleMapsUrl = countryData.maps.googleMaps;
+        window.open(googleMapsUrl, "_blank");
+      }
+    }
+  });
 };
 
 const input = (data) => {
