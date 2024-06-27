@@ -7,18 +7,30 @@ const buttonContainer = document.querySelector(".buttonContainer");
 const displayContainer = document.querySelector(".displayContainer");
 const inputContainer = document.querySelector(".inputContainer");
 
-// ! Geolocation Function
-let lat, long;
+//! Variables
+let lat;
+let long;
+let countryName;
+let currentLocation;
+
+//! Event Listeners
+
+whereButton.addEventListener("click", () => {
+  getLocation(lat, long);
+});
+
+otherButton.addEventListener("click", () => {
+  getOtherCountry();
+});
+
+// ! GetcurrentPosition Function
 
 navigator.geolocation.getCurrentPosition((pos) => {
   lat = pos.coords.latitude;
   long = pos.coords.longitude;
 });
 
-// ! Geocoding API
-
-let countryName;
-let country;
+// ! Geocoding API  //  print location and display country card
 
 const getLocation = async (lat, long) => {
   try {
@@ -27,17 +39,19 @@ const getLocation = async (lat, long) => {
       throw new Error(`The country could not be found 😔 ${res.status}`);
     }
     const data = await res.json();
-    country = data;
+    currentLocation = data;
     countryName = data.country;
-    printAddress(country);
+
+    printAddress(currentLocation);
+    getCountry(countryName);
   } catch (error) {
     displayFlag.textContent = `${error}`;
   }
 };
 
-const printAddress = (country) => {
+const printAddress = (currentLocation) => {
   const html = `
-  <p class="adressText">You are currently in ${country.city} , ${country.country}</p>`;
+  <p class="adressText">You are currently in ${currentLocation.city} , ${currentLocation.country}</p>`;
 
   displayAdress.innerHTML = html;
 };
@@ -61,28 +75,47 @@ const getCountry = async (countryName) => {
   }
 };
 
-const printLocationCard = (data) => {
-  const html = `
-  <div class="card p-0" style="width: 25rem;">
-    <img src="${data.flags.svg}" class="card-img-top card-img" />
-    <div class="card-body d-flex flex-column justify-content-between">
-      <h5 class="card-title">${data.name.common}</h5>
-      <ul class="card-list list-unstyled me-2 fs-2">
-        <li><i class="fa-solid fa-landmark"></i> ${data.capital}</li>
-        <li><i class="fa-solid fa-coins"></i> ${
-          Object.values(data.currencies)[0].name
-        }</li>
-        <li><i class="fa-solid fa-person"></i> ${(
-          Number(data.population) / 1000000
-        ).toFixed(2)}</li>
-      </ul>
-      <a href="#" class="btn btn-primary btn-lg location">Location!</a>
+// card structure
+function createCountryCard(data) {
+  const formatPopulation = (population) => {
+    if (population >= 1e9) {
+      return (population / 1e9).toFixed(2) + " B";
+    } else if (population >= 1e6) {
+      return (population / 1e6).toFixed(2) + " M";
+    } else if (population >= 1e3) {
+      return (population / 1e3).toFixed(2) + " K";
+    } else {
+      return population.toString();
+    }
+  };
+
+  return `
+    <div class="card col-12 col-md-4 p-0" style="width: 25rem;">
+      <img src="${data.flags.svg}" class="card-img-top card-img" />
+      <div class="card-body d-flex flex-column justify-content-between">
+        <h5 class="card-title">${data.name.common}</h5>
+        <ul class="card-list list-unstyled me-2">
+          <li><i class="fa-solid fa-landmark"></i> ${data.capital}</li>
+          <li><i class="fa-solid fa-coins"></i> ${
+            Object.values(data.currencies)[0].name
+          }</li>
+          <li><i class="fa-solid fa-person"></i>${formatPopulation(
+            data.population
+          )} </li>
+        </ul>
+        <a href="#" class="btn btn-primary btn-lg location">Location!</a>
+      </div>
     </div>
-  </div>`;
+  `;
+}
+
+// print cards to screen
+const printLocationCard = (data) => {
+  const html = createCountryCard(data);
   displayFlag.innerHTML = html;
 };
 
-//! Other Buttons
+//! Other Button Functions
 
 const getOtherCountry = async () => {
   const res = await fetch("https://restcountries.com/v3.1/all");
@@ -99,26 +132,9 @@ const getOtherCountry = async () => {
   });
 };
 
+// print cards to screen
 const printCountryCard = (data) => {
-  const html = `
-<div class="card col-12 col-md-4 p-0" style="width: 25rem;">
-  <img src="${data.flags.svg}" class="card-img-top card-img" />
-  <div class="card-body d-flex flex-column justify-content-between">
-    <h5 class="card-title">${data.name.common}</h5>
-    <ul class="card-list list-unstyled me-2">
-      <li><i class="fa-solid fa-landmark"></i> ${data.capital}</li>
-      <li><i class="fa-solid fa-coins"></i> ${
-        Object.values(data.currencies)[0].name
-      }</li>
-      <li><i class="fa-solid fa-person"></i>${(
-        Number(data.population) / 1000000
-      ).toFixed(2)} </li>
-    </ul>
-    <a href="#" class="btn btn-primary btn-lg location">Location!</a>
-  </div>
-  </div> 
-  `;
-
+  const html = createCountryCard(data);
   displayRow.insertAdjacentHTML("beforeend", html);
 };
 
@@ -150,14 +166,3 @@ const seeLocation = (data) => {
     }
   });
 };
-
-//! Event Listeners
-
-whereButton.addEventListener("click", () => {
-  getLocation(lat, long);
-  getCountry(countryName);
-});
-
-otherButton.addEventListener("click", () => {
-  getOtherCountry();
-});
