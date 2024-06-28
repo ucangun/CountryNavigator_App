@@ -107,3 +107,13 @@ h1 {
 .card-list li .fa-person {
   margin-right: 1.6rem;
 }
+
+/* ---------------------------------- */
+/*             RESPONSIVE             */
+/* ---------------------------------- */
+
+@media (max-width: 768px) {
+  .displayContainer {
+    margin-top: 5rem;
+  }
+}
