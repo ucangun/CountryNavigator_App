@@ -25,6 +25,7 @@ The primary objective of this project is to enhance and demonstrate my skills in
 ## Outcome
 
 
+![CountryNavigator](https://github.com/ucangun/CountryNavigator_App/assets/149247682/d464166e-286e-4ee7-9e6b-64c1e6220c9f)
 
 
 
