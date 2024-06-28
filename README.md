@@ -29,7 +29,6 @@ The primary objective of this project is to enhance and demonstrate my skills in
 
 
 
-## Technologies Used
 
 ## Technologies Used
 - **HTML**: Used for structuring the content and layout of the application.
